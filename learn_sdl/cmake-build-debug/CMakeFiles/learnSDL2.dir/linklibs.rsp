@@ -1,0 +1,1 @@
+ -LC:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/SDL2-2.0.8/i686-w64-mingw32/lib  -LC:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/SDL2_image-2.0.3/i686-w64-mingw32/lib -lmingw32 -lSDL2main -lSDL2 -lopengl32 -lSDL2_image -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32 

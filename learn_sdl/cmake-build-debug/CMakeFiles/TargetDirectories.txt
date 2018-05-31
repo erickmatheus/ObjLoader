@@ -1,0 +1,3 @@
+C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/cmake-build-debug/CMakeFiles/edit_cache.dir
+C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/cmake-build-debug/CMakeFiles/learnSDL2.dir
+C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/cmake-build-debug/CMakeFiles/rebuild_cache.dir
