@@ -5,6 +5,20 @@ CMakeFiles/learnSDL2.dir/glad.c.obj: ../../lib/KHR/khrplatform.h
 CMakeFiles/learnSDL2.dir/glad.c.obj: ../../lib/glad/glad.h
 CMakeFiles/learnSDL2.dir/glad.c.obj: ../glad.c
 
+CMakeFiles/learnSDL2.dir/Camera.cpp.obj: ../Camera.cpp
+CMakeFiles/learnSDL2.dir/Camera.cpp.obj: ../Camera.h
+CMakeFiles/learnSDL2.dir/Camera.cpp.obj: ../glm/detail/_swizzle.hpp
+CMakeFiles/learnSDL2.dir/Camera.cpp.obj: ../glm/detail/_swizzle_func.hpp
+CMakeFiles/learnSDL2.dir/Camera.cpp.obj: ../glm/detail/compute_vector_relational.hpp
+CMakeFiles/learnSDL2.dir/Camera.cpp.obj: ../glm/detail/qualifier.hpp
+CMakeFiles/learnSDL2.dir/Camera.cpp.obj: ../glm/detail/setup.hpp
+CMakeFiles/learnSDL2.dir/Camera.cpp.obj: ../glm/detail/type_int.hpp
+CMakeFiles/learnSDL2.dir/Camera.cpp.obj: ../glm/detail/type_vec.hpp
+CMakeFiles/learnSDL2.dir/Camera.cpp.obj: ../glm/detail/type_vec3.hpp
+CMakeFiles/learnSDL2.dir/Camera.cpp.obj: ../glm/detail/type_vec3.inl
+CMakeFiles/learnSDL2.dir/Camera.cpp.obj: ../glm/simd/platform.h
+CMakeFiles/learnSDL2.dir/Camera.cpp.obj: ../glm/vec3.hpp
+
 CMakeFiles/learnSDL2.dir/Obj.cpp.obj: ../../lib/KHR/khrplatform.h
 CMakeFiles/learnSDL2.dir/Obj.cpp.obj: ../../lib/glad/glad.h
 CMakeFiles/learnSDL2.dir/Obj.cpp.obj: ../Obj.cpp

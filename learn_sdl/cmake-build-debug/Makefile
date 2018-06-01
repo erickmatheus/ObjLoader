@@ -122,6 +122,33 @@ learnSDL2/fast:
 	$(MAKE) -f CMakeFiles\learnSDL2.dir\build.make CMakeFiles/learnSDL2.dir/build
 .PHONY : learnSDL2/fast
 
+Camera.obj: Camera.cpp.obj
+
+.PHONY : Camera.obj
+
+# target to build an object file
+Camera.cpp.obj:
+	$(MAKE) -f CMakeFiles\learnSDL2.dir\build.make CMakeFiles/learnSDL2.dir/Camera.cpp.obj
+.PHONY : Camera.cpp.obj
+
+Camera.i: Camera.cpp.i
+
+.PHONY : Camera.i
+
+# target to preprocess a source file
+Camera.cpp.i:
+	$(MAKE) -f CMakeFiles\learnSDL2.dir\build.make CMakeFiles/learnSDL2.dir/Camera.cpp.i
+.PHONY : Camera.cpp.i
+
+Camera.s: Camera.cpp.s
+
+.PHONY : Camera.s
+
+# target to generate assembly for a file
+Camera.cpp.s:
+	$(MAKE) -f CMakeFiles\learnSDL2.dir\build.make CMakeFiles/learnSDL2.dir/Camera.cpp.s
+.PHONY : Camera.cpp.s
+
 Obj.obj: Obj.cpp.obj
 
 .PHONY : Obj.obj
@@ -239,6 +266,9 @@ help:
 	@echo ... edit_cache
 	@echo ... learnSDL2
 	@echo ... rebuild_cache
+	@echo ... Camera.obj
+	@echo ... Camera.i
+	@echo ... Camera.s
 	@echo ... Obj.obj
 	@echo ... Obj.i
 	@echo ... Obj.s

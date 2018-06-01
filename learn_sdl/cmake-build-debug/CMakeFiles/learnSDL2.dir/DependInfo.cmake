@@ -15,6 +15,7 @@ set(CMAKE_C_TARGET_INCLUDE_PATH
   "../SDL2-2.0.8/i686-w64-mingw32/include"
   )
 set(CMAKE_DEPENDS_CHECK_CXX
+  "C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Camera.cpp" "C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/cmake-build-debug/CMakeFiles/learnSDL2.dir/Camera.cpp.obj"
   "C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Obj.cpp" "C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/cmake-build-debug/CMakeFiles/learnSDL2.dir/Obj.cpp.obj"
   "C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ObjLoad.cpp" "C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/cmake-build-debug/CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj"
   "C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/main.cpp" "C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/cmake-build-debug/CMakeFiles/learnSDL2.dir/main.cpp.obj"

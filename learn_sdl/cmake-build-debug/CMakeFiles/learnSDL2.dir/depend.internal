@@ -5,6 +5,20 @@ CMakeFiles/learnSDL2.dir/glad.c.obj
  ../../lib/KHR/khrplatform.h
  ../../lib/glad/glad.h
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glad.c
+CMakeFiles/learnSDL2.dir/Camera.cpp.obj
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Camera.cpp
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Camera.h
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/_swizzle.hpp
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/_swizzle_func.hpp
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/compute_vector_relational.hpp
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/qualifier.hpp
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/setup.hpp
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/type_int.hpp
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/type_vec.hpp
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/type_vec3.hpp
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/type_vec3.inl
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/simd/platform.h
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/vec3.hpp
 CMakeFiles/learnSDL2.dir/Obj.cpp.obj
  ../../lib/KHR/khrplatform.h
  ../../lib/glad/glad.h

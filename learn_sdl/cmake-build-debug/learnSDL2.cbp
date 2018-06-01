@@ -86,6 +86,12 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Camera.cpp">
+			<Option target="learnSDL2"/>
+		</Unit>
+		<Unit filename="C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Camera.h">
+			<Option target="learnSDL2"/>
+		</Unit>
 		<Unit filename="C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Obj.cpp">
 			<Option target="learnSDL2"/>
 		</Unit>

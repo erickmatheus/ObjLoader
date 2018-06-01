@@ -79,16 +79,26 @@ void ObjLoad::load() {
                         texture.push_back(tindex);
                     }
                 } else {
+                    int x, y ,z;
 
+                    std::stringstream stream(split[i]);
+
+                    stream >> x;
+                    stream >> y;
+                    stream >> z;
+
+                    vertex.push_back(x);
+                    vertex.push_back(y);
+                    vertex.push_back(z);
                 }
             }
 
             obj->addEBO(vertex.at(0) - 1, vertex.at(1) - 1, vertex.at(2) - 1);
-            /*if (vertex.size() - 1 != 2) {
+            if (vertex.size() - 1 != 2) {
                 for (unsigned int j = 2; j < vertex.size(); ++j) {
                     obj->addEBO(vertex.at(0) - 1, vertex.at(j - 1) - 1, vertex.at(j) - 1);
                 }
-            }*/
+            }
 
         }
 

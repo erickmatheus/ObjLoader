@@ -55,6 +55,18 @@ void Obj::addEBO(glm::vec3 vec3) {
     addEBO(static_cast<int>(vec3.x), static_cast<int>(vec3.y), static_cast<int>(vec3.z));
 }
 
+void Obj::draw(unsigned int program, float x, float y, float z) {
+    model = glm::mat4(1.0f);
+    model = glm::translate(model, glm::vec3(x, y, z));
+
+    glUseProgram(program);
+    glBindVertexArray(VAO);
+
+    glUniformMatrix4fv(glGetUniformLocation(program, "model"), 1, GL_FALSE, glm::value_ptr(model));
+
+    glDrawElements(GL_TRIANGLES, ebo.size(), GL_UNSIGNED_INT, 0);
+}
+
 void Obj::draw(unsigned int program) {
     glUseProgram(program);
     glBindVertexArray(VAO);
@@ -63,6 +75,7 @@ void Obj::draw(unsigned int program) {
 
     glDrawElements(GL_TRIANGLES, ebo.size(), GL_UNSIGNED_INT, 0);
 }
+
 
 Obj::~Obj() {
 

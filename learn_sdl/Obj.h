@@ -52,6 +52,8 @@ public:
     void autoRotate();
 
     void draw(unsigned int program);
+
+    void draw(unsigned int program, float x, float y, float z);
 };
 
 

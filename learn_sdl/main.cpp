@@ -226,14 +226,19 @@ void LoadObjects(){
 
 void RenderLoop(){
     glEnable(GL_DEPTH_TEST);
-    ObjLoad load("data/house.obj");
+    ObjLoad load("data/cube.obj");
     load.load();
     Obj *obj = load.getObject();
     if (obj == nullptr) obj = new Obj;
 
     obj->initialize();
     glm::mat4 view = glm::mat4(1.0f);
-    glm::mat4 projection = glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);;
+    glm::mat4 projection = glm::mat4(1.0f);//glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
+
+    glm::vec3 pos = glm::vec3(0.0f, 0.0f, -3.0f);
+    glm::vec3 dir = glm::vec3(0.0f, 0.0f, 0.0f);
+    glm::vec3 up  = glm::vec3(0.0f, 1.0f, 0.0f);
+
 
     while(!m_isClosed){
         SDL_GL_SwapWindow(m_window);
@@ -267,7 +272,8 @@ void RenderLoop(){
                 }
 
                 if (e.key.keysym.sym == SDLK_w) {
-                    view = glm::translate(view, glm::vec3(0.0f, 0.1f, 0.0f));
+                    //view = glm::translate(view, glm::vec3(0.0f, 0.1f, 0.0f));
+                    pos += dir.operator*=(0.05f);
                     std::cout << "translate" << std::endl;
                 }
 
@@ -287,15 +293,19 @@ void RenderLoop(){
             }
         }
 
+        //view = glm::lookAt(pos, dir, up);
         obj->autoRotate();
 
         glClearColor(0.2, 0.2, 0.5, 0.0); // Set the clear color. State setting function
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// State using funtion
         //Draw();
 
+        float pos[] = {};
+
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
 
+        obj->draw(shaderProgram, 0.0f, 1.0f, 0.0f);
         obj->draw(shaderProgram);
         //Update(m_window);
     }
@@ -305,104 +315,4 @@ void Quit(){
     SDL_GL_DeleteContext(m_glContext);
     SDL_DestroyWindow(m_window);
     SDL_Quit();
-}
-
-glm::mat4 transformation = glm::mat4(1.0f);
-
-int count = 0;
-int repeat = 0;
-
-void Update(SDL_Window * m_window){
-    SDL_GL_SwapWindow(m_window);
-
-    SDL_Event e;
-
-
-    while(SDL_PollEvent(&e)){
-        if(e.type == SDL_QUIT){
-            m_isClosed = true;
-        }
-
-        if(e.type == SDL_KEYDOWN) {
-            if (e.key.keysym.sym == SDLK_UP) {
-                //glm::mat4 transform = glm::mat4(1.0f);
-                transformation = glm::rotate(transformation, 0.174533f, glm::vec3(1.0f, 0.0f, 0.0f));
-                count += 1 + repeat;
-                repeat++;
-
-                std::cout << "count: " << count << " repeat: " << repeat << std::endl;
-            }
-
-            if (e.key.keysym.sym == SDLK_DOWN) {
-                //transformation = glm::translate(transformation, glm::vec3(0.0f, -0.1f, 0.0f));
-                transformation = glm::rotate(transformation, 0.174533f, glm::vec3(-1.0f, 0.0f, 0.0f));
-                if (count > 0) count -= 1 + repeat;
-                repeat++;
-                std::cout << "count: " << count << std::endl;
-            }
-
-            if (e.key.keysym.sym == SDLK_LEFT) {
-                transformation = glm::rotate(transformation, 0.174533f, glm::vec3(0.0f, 1.0f, 0.0f));
-            }
-
-            if (e.key.keysym.sym == SDLK_RIGHT) {
-                transformation = glm::rotate(transformation, 0.174533f, glm::vec3(0.0f, -1.0f, 0.0f));
-            }
-
-            if (e.key.keysym.sym == SDLK_r) {
-                transformation = glm::rotate(transformation, 0.174533f, glm::vec3(1.0f, 1.0f, 0.0f));
-            }
-
-            if (e.key.keysym.sym == SDLK_w) {
-                transformation = glm::scale(transformation, glm::vec3(1.0f, 1.0f, 1.0f));
-                std::cout << "w" << std::endl;
-            }
-
-            if (e.key.keysym.sym == SDLK_s) {
-                transformation = glm::scale(transformation, glm::vec3(1.0f, 1.0f, 1.0f));
-                std::cout << "w" << std::endl;
-            }
-
-
-            if (e.key.keysym.sym == SDLK_m) {
-                glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-            }
-
-            if (e.key.keysym.sym == SDLK_l) {
-                glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-            }
-        }
-
-        if (e.type == SDL_KEYUP){
-            if (e.key.keysym.sym == SDLK_UP){
-                std::cout << repeat << " repeat = 0" << std::endl;
-                repeat = 0;
-            }
-            if (e.key.keysym.sym == SDLK_DOWN){
-                repeat = 0;
-            }
-        }
-    }
-}
-
-
-void Draw(){
-    GLint i = glGetUniformLocation(shaderProgram, "mouse");
-
-    GLint location = glGetUniformLocation(shaderProgram, "transform");
-
-    int x, y;
-    SDL_GetMouseState(&x, &y);
-
-
-    glUseProgram(shaderProgram);
-    glBindVertexArray(VAO);
-
-    glUniform2f(i, static_cast<GLfloat>(sin(x) / 2.0f + 0.5f), static_cast<GLfloat>(cos(y) / 2.0f + 0.5));
-    glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(transformation));
-    //glUniform4f(i, r, 0.0f, 0.0f, 1.0f);
-    //glDrawArrays(GL_TRIANGLES, 0, 12* 3);
-    glDrawElements(GL_TRIANGLES, 3600, GL_UNSIGNED_INT, 0);
-
-    SDL_Delay(100);
 }
