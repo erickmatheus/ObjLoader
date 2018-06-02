@@ -15,6 +15,7 @@
 
 #include "Obj.h"
 #include "ObjLoad.h"
+#include "Camera.h"
 
 // Functions Signature
 void Init();
@@ -40,9 +41,47 @@ SDL_Window *m_window;
 SDL_GLContext m_glContext;
 
 float vertices[] = {
-        -0.5f, -0.5f, 0.5f,
-         0.5f, -0.5f, 0.5f,
-        -0.5f,  0.5f, 0.5f
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+        0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
+
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
+
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
+        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
 };
 
 static const GLfloat g_color_buffer_data[] = {
@@ -62,12 +101,12 @@ const char* vertexShaderSource = "#version 330 core\n"
                                  "layout (location = 2) in vec2 aTexCoord;"
                                  "out vec3 ourColor;"
                                  "out vec2 TexCoord;"
-                                 "uniform vec2 mouse;"
                                  "uniform mat4 model;"
                                  "uniform mat4 view;"
                                  "uniform mat4 projection;"
+                                 "uniform mat4 combined;"
                                  "void main(){"
-                                 "gl_Position = view * model * vec4(aPos.x, aPos.y, aPos.z, 1.0);"
+                                 "gl_Position = projection * view * model * vec4(aPos.x, aPos.y, aPos.z, 1.0);"
                                  "ourColor = vec3(aPos.x, aPos.y, aPos.z);"
                                  "TexCoord = aTexCoord;"
                                  "}";
@@ -109,7 +148,7 @@ void Init(){
                                      SDL_WINDOW_OPENGL
     );
 
-    if(m_window == NULL){
+    if(m_window == nullptr){
         std::cout << SDL_GetError();
     }
 
@@ -225,6 +264,22 @@ void LoadObjects(){
 }
 
 void RenderLoop(){
+    unsigned int VBO, VAO;
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+
+    glBindVertexArray(VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    // position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    // texture coord attribute
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
     glEnable(GL_DEPTH_TEST);
     ObjLoad load("data/cube.obj");
     load.load();
@@ -232,13 +287,23 @@ void RenderLoop(){
     if (obj == nullptr) obj = new Obj;
 
     obj->initialize();
-    glm::mat4 view = glm::mat4(1.0f);
     glm::mat4 projection = glm::mat4(1.0f);//glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
 
-    glm::vec3 pos = glm::vec3(0.0f, 0.0f, -3.0f);
-    glm::vec3 dir = glm::vec3(0.0f, 0.0f, 0.0f);
-    glm::vec3 up  = glm::vec3(0.0f, 1.0f, 0.0f);
+    Camera camera(glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f));
 
+    /*camera.setPosition(0.0f, 0.0f, 3.0f);
+    camera.lookAt(glm::vec3(0.0f, 0.0f, 0.0f));*/
+
+    const float *ptrr = glm::value_ptr(camera.getView());
+    for (int i = 0; i < 16; i++) {
+        std::cout << ptrr[i] << " ";
+    }
+    std::cout << std::endl;
+
+    const float *ptr = glm::value_ptr(camera.getView() * camera.getView());
+    for (int i = 0; i < 16; i++) {
+        std::cout << ptr[i] << " ";
+    }
 
     while(!m_isClosed){
         SDL_GL_SwapWindow(m_window);
@@ -252,33 +317,30 @@ void RenderLoop(){
 
             if(e.type == SDL_KEYDOWN) {
                 if (e.key.keysym.sym == SDLK_UP) {
-                    view = glm::rotate(view, 0.174533f, glm::vec3(1.0f, 0.0f, 0.0f));
                     std::cout << "rotate" << std::endl;
                 }
 
                 if (e.key.keysym.sym == SDLK_DOWN) {
-                    view = glm::rotate(view, 0.174533f, glm::vec3(-1.0f, 0.0f, 0.0f));
                     std::cout << "rotate" << std::endl;
                 }
 
                 if (e.key.keysym.sym == SDLK_LEFT) {
-                    view = glm::rotate(view, 0.174533f, glm::vec3(0.0f, 1.0f, 0.0f));
                     std::cout << "rotate" << std::endl;
                 }
 
                 if (e.key.keysym.sym == SDLK_RIGHT) {
-                    view = glm::rotate(view, 0.174533f, glm::vec3(0.0f, -1.0f, 0.0f));
                     std::cout << "rotate" << std::endl;
                 }
 
                 if (e.key.keysym.sym == SDLK_w) {
                     //view = glm::translate(view, glm::vec3(0.0f, 0.1f, 0.0f));
-                    pos += dir.operator*=(0.05f);
+                    camera.translate(0.0f, 0.0f, 1.0f);
                     std::cout << "translate" << std::endl;
                 }
 
                 if (e.key.keysym.sym == SDLK_s) {
-                    view = glm::translate(view, glm::vec3(0.0f, -0.1f, 0.0f));
+                    camera.translate(0.0f, 0.0f, -1.0f);
+
                     std::cout << "translate" << std::endl;
                 }
 
@@ -293,6 +355,8 @@ void RenderLoop(){
             }
         }
 
+        camera.update();
+
         //view = glm::lookAt(pos, dir, up);
         obj->autoRotate();
 
@@ -302,10 +366,12 @@ void RenderLoop(){
 
         float pos[] = {};
 
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(view));
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(camera.getView()));
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(camera.getProjection()));
 
-        obj->draw(shaderProgram, 0.0f, 1.0f, 0.0f);
+        /*glBindVertexArray(VAO);
+        glDrawArrays(GL_TRIANGLES, 0, 36);*/
+        //obj->draw(shaderProgram, 0.0f, 1.0f, 0.0f);
         obj->draw(shaderProgram);
         //Update(m_window);
     }

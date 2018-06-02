@@ -43,7 +43,7 @@ void ObjLoad::load() {
         if (split.empty() || split.front() == "#") continue;
 
         if (split.front() == "v" && split.size() > 3){
-            std::cout << split.size() << std::endl;
+            //std::cout << split.size() << std::endl;
             obj->addVertex(std::stof(split[1]), std::stof(split[2]), std::stof(split[3]));
         } else if (split.front() == "f"){
             std::vector<int> vertex;

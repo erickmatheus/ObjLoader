@@ -627,10 +627,16 @@ close_code.h
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Camera.cpp
 Camera.h
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Camera.h
+glm/gtc/matrix_transform.hpp
+C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/gtc/matrix_transform.hpp
 
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Camera.h
 glm/vec3.hpp
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/vec3.hpp
+glm/detail/type_mat.hpp
+C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/type_mat.hpp
+glm/detail/type_mat4x4.hpp
+C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/type_mat4x4.hpp
 
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Obj.cpp
 iostream
@@ -1547,4 +1553,6 @@ Obj.h
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Obj.h
 ObjLoad.h
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ObjLoad.h
+Camera.h
+C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Camera.h
 

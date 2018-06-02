@@ -24,7 +24,7 @@ float Obj::getNum_vertices() const {
 
 void Obj::addVertex(float x, float y, float z, float w) {
     addVertex(glm::vec3(x, y, z));
-    std::cout << "add vertex: " << x << "  " << y << "  " << z << std::endl;
+    //std::cout << "add vertex: " << x << "  " << y << "  " << z << std::endl;
 }
 
 void Obj::addVertex(glm::vec3 vec3) {
