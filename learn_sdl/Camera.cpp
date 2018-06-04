@@ -12,7 +12,7 @@ Camera::Camera(glm::mat4 projection) {
     direction = glm::vec3(0.0, 0.0f, 0.0f);
     up = glm::vec3(0.0f, 1.0f , 0.0f);
 
-    view = glm::lookAt(position, direction, up);
+    view = glm::mat4(1.0f);//glm::lookAt(position, direction, up);
 
     combined = projection.operator*=(view);
 }
@@ -22,7 +22,7 @@ void Camera::lookAt(glm::vec3 lookAtPos) {
 }
 
 void Camera::update() {
-    view = glm::lookAt(position, direction, up);
+    //view = glm::lookAt(position, direction, up);
 
     combined = projection;
 }
@@ -35,6 +35,7 @@ void Camera::setPosition(float x, float y, float z) {
     position.x = x;
     position.y = y;
     position.z = z;
+    view = glm::translate(view, glm::vec3(x, y, z));
 }
 
 const glm::mat4 &Camera::getView() const {
@@ -47,4 +48,8 @@ const glm::mat4 &Camera::getCombined() const {
 
 const glm::mat4 &Camera::getProjection() const {
     return projection;
+}
+
+void Camera::rotate(float angle, float x, float y, float z) {
+    view = glm::rotate(view, angle, glm::vec3(x, y, z));
 }

@@ -37,6 +37,8 @@ public:
     const glm::mat4 &getView() const;
 
     const glm::mat4 &getProjection() const;
+
+    void rotate(float angle, float x, float y, float z);
 };
 
 

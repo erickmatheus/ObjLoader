@@ -103,6 +103,10 @@ const char* vertexShaderSource = "#version 330 core\n"
                                  "out vec2 TexCoord;"
                                  "uniform mat4 model;"
                                  "uniform mat4 view;"
+                                 /*"mat4 view = mat4(cos(0.785398), sin(0.785398), 0.0, 0.0,"
+                                 "                -sin(0.785398), cos(0.785398), 0.0, 0.0,"
+                                 "                 0.0, 0.0, 1.0, 0.0,"
+                                 "                 0.0, 0.0,-5.0, 1.0);"*/
                                  "uniform mat4 projection;"
                                  "uniform mat4 combined;"
                                  "void main(){"
@@ -304,6 +308,8 @@ void RenderLoop(){
     for (int i = 0; i < 16; i++) {
         std::cout << ptr[i] << " ";
     }
+    camera.setPosition(0.0f, 0.0f, -10.0f);
+    //camera.rotate(glm::radians(45.0f), 0.0f, 0.0f, 1.0f);
 
     while(!m_isClosed){
         SDL_GL_SwapWindow(m_window);
@@ -318,10 +324,12 @@ void RenderLoop(){
             if(e.type == SDL_KEYDOWN) {
                 if (e.key.keysym.sym == SDLK_UP) {
                     std::cout << "rotate" << std::endl;
+                    camera.rotate(glm::radians(45.0f), -1.0f, 0.0f, 0.0f);
                 }
 
                 if (e.key.keysym.sym == SDLK_DOWN) {
                     std::cout << "rotate" << std::endl;
+                    camera.rotate(glm::radians(45.0f), 1.0f, 0.0f, 0.0f);
                 }
 
                 if (e.key.keysym.sym == SDLK_LEFT) {
@@ -355,7 +363,7 @@ void RenderLoop(){
             }
         }
 
-        camera.update();
+        //camera.update();
 
         //view = glm::lookAt(pos, dir, up);
         obj->autoRotate();
@@ -371,8 +379,10 @@ void RenderLoop(){
 
         /*glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);*/
-        //obj->draw(shaderProgram, 0.0f, 1.0f, 0.0f);
-        obj->draw(shaderProgram);
+        obj->draw(shaderProgram, 0.0f, 0.0f, 0.0f);
+
+        obj->draw(shaderProgram, 0.0f, 4.0f, 0.0f);
+        //obj->draw(shaderProgram);
         //Update(m_window);
     }
 }
