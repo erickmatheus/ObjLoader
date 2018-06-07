@@ -41,47 +41,10 @@ SDL_Window *m_window;
 SDL_GLContext m_glContext;
 
 float vertices[] = {
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-        0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
-
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 1.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f, -0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f, -0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f, -0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f, -0.5f, -0.5f,  0.0f, 1.0f,
-
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f,
-        0.5f,  0.5f, -0.5f,  1.0f, 1.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        0.5f,  0.5f,  0.5f,  1.0f, 0.0f,
-        -0.5f,  0.5f,  0.5f,  0.0f, 0.0f,
-        -0.5f,  0.5f, -0.5f,  0.0f, 1.0f
+        1.0f, 0.0f,  1.0f,
+        1.0f, 0.0f, -1.0f,
+       -1.0f, 0.0f, -1.0f,
+       -1.0f, 0.0f,  1.0f
 };
 
 static const GLfloat g_color_buffer_data[] = {
@@ -103,14 +66,14 @@ const char* vertexShaderSource = "#version 330 core\n"
                                  "out vec2 TexCoord;"
                                  "uniform mat4 model;"
                                  "uniform mat4 view;"
-                                 /*"mat4 view = mat4(cos(0.785398), sin(0.785398), 0.0, 0.0,"
-                                 "                -sin(0.785398), cos(0.785398), 0.0, 0.0,"
-                                 "                 0.0, 0.0, 1.0, 0.0,"
-                                 "                 0.0, 0.0,-5.0, 1.0);"*/
+                                 /*"mat4 view = mat4(0.0, 0.0, 0.0, 0.0,"
+                                 "                 0.0, 0.0, 0.0, 0.0,"
+                                 "                 0.0, 0.0, 0.0, 0.0,"
+                                 "                 0.0, 0.0, 0.0, 1.0);"*/
                                  "uniform mat4 projection;"
                                  "uniform mat4 combined;"
                                  "void main(){"
-                                 "gl_Position = projection * view * model * vec4(aPos.x, aPos.y, aPos.z, 1.0);"
+                                 "gl_Position = combined * model * vec4(aPos.x, aPos.y, aPos.z, 1.0);"
                                  "ourColor = vec3(aPos.x, aPos.y, aPos.z);"
                                  "TexCoord = aTexCoord;"
                                  "}";
@@ -120,7 +83,10 @@ const char* fragmentShaderSource = "#version 330 core\n"
                                    "in vec2 TexCoord;"
                                    "uniform sampler2D ourTexture;"
                                    "void main(){"
-                                   "FragColor = vec4(ourColor, 1.0);"
+                                   "float ambientStrength = 0.5;"
+                                   "vec3 ambient = ambientStrength * vec3(1.0, 1.0, 0.0);"
+                                   "vec3 result = ambient * ourColor;"
+                                   "FragColor = vec4(result, 1.0);"
                                    "}";
 
 int main(int argc, char *argv[]){
@@ -278,11 +244,11 @@ void RenderLoop(){
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     // position attribute
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
     glEnableVertexAttribArray(0);
     // texture coord attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
-    glEnableVertexAttribArray(1);
+    /*glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);*/
 
     glEnable(GL_DEPTH_TEST);
     ObjLoad load("data/cube.obj");
@@ -311,6 +277,14 @@ void RenderLoop(){
     camera.setPosition(0.0f, 0.0f, -10.0f);
     //camera.rotate(glm::radians(45.0f), 0.0f, 0.0f, 1.0f);
 
+    float yaw = 0.0f;
+    float pitch = 0.0f;
+    glm::vec3 front = glm::vec3(0.0, 0.0, 0.0);
+
+    SDL_WarpMouseInWindow(m_window, width / 2, height / 2);
+    bool is_warp = true;
+    float sensitivity = 0.2f;
+
     while(!m_isClosed){
         SDL_GL_SwapWindow(m_window);
 
@@ -321,34 +295,71 @@ void RenderLoop(){
                 m_isClosed = true;
             }
 
+            if (e.type == SDL_MOUSEMOTION){
+                if (!is_warp) {
+                    SDL_WarpMouseInWindow(m_window, width / 2, height / 2);
+                    yaw += e.motion.xrel * sensitivity;
+                    pitch += -e.motion.yrel * sensitivity;
+                    std::cout << "x: " << e.motion.xrel << std::endl;
+                    std::cout << "y: " << e.motion.yrel << std::endl;
+                    is_warp = true;
+                } else {
+                    is_warp = false;
+                }
+                if (pitch > 89.0f) {
+                    pitch = 89.f;
+                }
+
+                if (pitch < -89.0f) {
+                    pitch = 89.0f;
+                }
+            }
+
             if(e.type == SDL_KEYDOWN) {
+                if (e.key.keysym.sym == SDLK_ESCAPE){
+                    m_isClosed = true;
+                }
+
                 if (e.key.keysym.sym == SDLK_UP) {
+                    pitch++;
+                    if (pitch > 89.0f) {
+                        pitch = 89.f;
+                    }
                     std::cout << "rotate" << std::endl;
-                    camera.rotate(glm::radians(45.0f), -1.0f, 0.0f, 0.0f);
+                    //camera.rotate(glm::radians(45.0f), -1.0f, 0.0f, 0.0f);
                 }
 
                 if (e.key.keysym.sym == SDLK_DOWN) {
+                    pitch--;
+                    if (pitch < -89.0f) {
+                        pitch = 89.0f;
+                    }
                     std::cout << "rotate" << std::endl;
-                    camera.rotate(glm::radians(45.0f), 1.0f, 0.0f, 0.0f);
                 }
 
                 if (e.key.keysym.sym == SDLK_LEFT) {
+                    yaw--;
                     std::cout << "rotate" << std::endl;
                 }
 
                 if (e.key.keysym.sym == SDLK_RIGHT) {
+                    yaw++;
                     std::cout << "rotate" << std::endl;
                 }
 
                 if (e.key.keysym.sym == SDLK_w) {
                     //view = glm::translate(view, glm::vec3(0.0f, 0.1f, 0.0f));
-                    camera.translate(0.0f, 0.0f, 1.0f);
+                    auto speed = 2.5f;
+                    auto dir = camera.getPosition() + camera.getDirection();
+                    camera.translate(front.x * speed, front.y * speed, front.z * speed);
+                    //camera.setPosition(50, 50, 50);
                     std::cout << "translate" << std::endl;
                 }
 
                 if (e.key.keysym.sym == SDLK_s) {
-                    camera.translate(0.0f, 0.0f, -1.0f);
-
+                    auto speed = -2.5f;
+                    auto dir = camera.getPosition() + camera.getDirection();
+                    camera.translate(front.x * speed, front.y * speed, front.z * speed);
                     std::cout << "translate" << std::endl;
                 }
 
@@ -363,7 +374,15 @@ void RenderLoop(){
             }
         }
 
-        //camera.update();
+
+
+        front.x = static_cast<float>(cos(glm::radians(yaw))) * static_cast<float>(cos(glm::radians(pitch)));
+        front.y = static_cast<float>(sin(glm::radians(pitch)));
+        front.z = static_cast<float>(sin(glm::radians(yaw))) * static_cast<float>(cos(glm::radians(pitch)));
+        front = glm::normalize(front);
+        camera.lookAt(glm::vec3(camera.getPosition() + front));
+
+        camera.update();
 
         //view = glm::lookAt(pos, dir, up);
         obj->autoRotate();
@@ -376,6 +395,7 @@ void RenderLoop(){
 
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(camera.getView()));
         glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(camera.getProjection()));
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "combined"), 1, GL_FALSE, glm::value_ptr(camera.getCombined()));
 
         /*glBindVertexArray(VAO);
         glDrawArrays(GL_TRIANGLES, 0, 36);*/
@@ -384,6 +404,24 @@ void RenderLoop(){
         obj->draw(shaderProgram, 0.0f, 4.0f, 0.0f);
         //obj->draw(shaderProgram);
         //Update(m_window);
+
+        glm::mat4 model = glm::mat4(1.0f);
+        //model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -100.0f));
+        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(model));
+
+        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+        for (int i = 0; i < 200; i++) {
+            for (int j = 0; j < 200; j++) {
+                model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
+                glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(model));
+
+                glBindVertexArray(VAO);
+                glDrawArrays(GL_QUADS, 0, 4);
+            }
+            model = glm::translate(model, glm::vec3(-400.0f, 0.0f, 2.0f));
+        }
+        glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
     }
 }
 

@@ -38,6 +38,10 @@ public:
 
     const glm::mat4 &getProjection() const;
 
+    const glm::vec3 &getPosition() const;
+
+    const glm::vec3 &getDirection() const;
+
     void rotate(float angle, float x, float y, float z);
 };
 

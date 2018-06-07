@@ -2,6 +2,7 @@
 // Created by Dantas on 01/06/2018.
 //
 
+#include <iostream>
 #include "Camera.h"
 #include "glm/gtc/matrix_transform.hpp"
 
@@ -12,7 +13,13 @@ Camera::Camera(glm::mat4 projection) {
     direction = glm::vec3(0.0, 0.0f, 0.0f);
     up = glm::vec3(0.0f, 1.0f , 0.0f);
 
-    view = glm::mat4(1.0f);//glm::lookAt(position, direction, up);
+
+
+    view = glm::lookAt(position, direction, up);/*glm::mat4(
+            2.0f, 1.0f, 0.0f, 0.0f,
+            0.0f, 1.0f, 0.0f, 0.0f,
+            0.0f, 0.0f, 1.0f, 0.0f,
+            0.0f, 0.0f, 3.0f, 1.0f);*///glm::lookAt(position, direction, up);
 
     combined = projection.operator*=(view);
 }
@@ -22,13 +29,15 @@ void Camera::lookAt(glm::vec3 lookAtPos) {
 }
 
 void Camera::update() {
-    //view = glm::lookAt(position, direction, up);
+    view = glm::lookAt(position, direction, up);
 
-    combined = projection;
+    combined = projection * view;
 }
 
 void Camera::translate(float x, float y, float z) {
-    position += glm::vec3(x, y, z);
+    position = glm::vec3(position.x + x, position.y + y, position.z + z);
+    std::cout << x << " " << y << " " << z << std::endl;
+    std::cout << position.x << " " << position.y << " " << position.z << std::endl;
 }
 
 void Camera::setPosition(float x, float y, float z) {
@@ -52,4 +61,12 @@ const glm::mat4 &Camera::getProjection() const {
 
 void Camera::rotate(float angle, float x, float y, float z) {
     view = glm::rotate(view, angle, glm::vec3(x, y, z));
+}
+
+const glm::vec3 &Camera::getPosition() const {
+    return position;
+}
+
+const glm::vec3 &Camera::getDirection() const {
+    return direction;
 }
