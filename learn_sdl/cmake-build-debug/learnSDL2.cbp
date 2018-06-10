@@ -104,6 +104,12 @@
 		<Unit filename="C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ObjLoad.h">
 			<Option target="learnSDL2"/>
 		</Unit>
+		<Unit filename="C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ShaderProgram.cpp">
+			<Option target="learnSDL2"/>
+		</Unit>
+		<Unit filename="C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ShaderProgram.h">
+			<Option target="learnSDL2"/>
+		</Unit>
 		<Unit filename="C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glad.c">
 			<Option target="learnSDL2"/>
 		</Unit>

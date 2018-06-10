@@ -16,6 +16,6 @@ include_directories(${SDL2_INCLUDE_DIRS})
 link_directories(${SDL2_LIBDIR})
 link_directories(${SDL2_IMAGE_PATH}/lib)
 
-add_executable(learnSDL2 main.cpp glad.c Obj.cpp Obj.h ObjLoad.cpp ObjLoad.h Camera.cpp Camera.h)
+add_executable(learnSDL2 main.cpp glad.c Obj.cpp Obj.h ObjLoad.cpp ObjLoad.h Camera.cpp Camera.h ShaderProgram.cpp ShaderProgram.h)
 
 target_link_libraries(learnSDL2 ${SDL2_LIBRARIES})

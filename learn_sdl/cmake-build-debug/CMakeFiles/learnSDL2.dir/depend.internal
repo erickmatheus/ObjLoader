@@ -91,6 +91,7 @@ CMakeFiles/learnSDL2.dir/Obj.cpp.obj
  ../../lib/glad/glad.h
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Obj.cpp
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Obj.h
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ShaderProgram.h
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/common.hpp
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/_fixes.hpp
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/_swizzle.hpp
@@ -191,9 +192,12 @@ CMakeFiles/learnSDL2.dir/Obj.cpp.obj
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/vec4.hpp
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/vector_relational.hpp
 CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj
+ ../../lib/KHR/khrplatform.h
+ ../../lib/glad/glad.h
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Obj.h
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ObjLoad.cpp
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ObjLoad.h
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ShaderProgram.h
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/common.hpp
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/_fixes.hpp
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/_swizzle.hpp
@@ -280,6 +284,11 @@ CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/vec3.hpp
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/vec4.hpp
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/vector_relational.hpp
+CMakeFiles/learnSDL2.dir/ShaderProgram.cpp.obj
+ ../../lib/KHR/khrplatform.h
+ ../../lib/glad/glad.h
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ShaderProgram.cpp
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ShaderProgram.h
 CMakeFiles/learnSDL2.dir/main.cpp.obj
  ../../lib/KHR/khrplatform.h
  ../../lib/glad/glad.h
@@ -331,6 +340,7 @@ CMakeFiles/learnSDL2.dir/main.cpp.obj
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Camera.h
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Obj.h
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ObjLoad.h
+ C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ShaderProgram.h
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/common.hpp
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/_fixes.hpp
  C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/detail/_swizzle.hpp

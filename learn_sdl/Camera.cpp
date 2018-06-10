@@ -67,6 +67,10 @@ const glm::vec3 &Camera::getPosition() const {
     return position;
 }
 
+glm::vec3 Camera::getRight() {
+    return glm::normalize(glm::cross(direction, glm::vec3(0.0f, 1.0f, 0.0f)));;
+}
+
 const glm::vec3 &Camera::getDirection() const {
     return direction;
 }

@@ -43,6 +43,8 @@ public:
     const glm::vec3 &getDirection() const;
 
     void rotate(float angle, float x, float y, float z);
+
+    glm::vec3 getRight();
 };
 
 

@@ -16,6 +16,7 @@
 #include "Obj.h"
 #include "ObjLoad.h"
 #include "Camera.h"
+#include "ShaderProgram.h"
 
 // Functions Signature
 void Init();
@@ -41,6 +42,50 @@ SDL_Window *m_window;
 SDL_GLContext m_glContext;
 
 float vertices[] = {
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+        0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+        0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+        0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f,  0.0f,  1.0f,
+
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+
+        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+        0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+        0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+        0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+        0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+        0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+        0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+        -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+        -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+        0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+        0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+        -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+        -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+};
+
+float quad[] = {
         1.0f, 0.0f,  1.0f,
         1.0f, 0.0f, -1.0f,
        -1.0f, 0.0f, -1.0f,
@@ -60,39 +105,45 @@ static const GLfloat g_color_buffer_data[] = {
 // Shaders
 const char* vertexShaderSource = "#version 330 core\n"
                                  "layout (location = 0) in vec3 aPos;"
-                                 "layout (location = 1) in vec3 aColor;"
-                                 "layout (location = 2) in vec2 aTexCoord;"
+                                 "layout (location = 1) in vec3 aNor;"
+                                 "out vec3 ourNor;"
+                                 "out vec3 fragPos;"
                                  "out vec3 ourColor;"
-                                 "out vec2 TexCoord;"
                                  "uniform mat4 model;"
                                  "uniform mat4 view;"
-                                 /*"mat4 view = mat4(0.0, 0.0, 0.0, 0.0,"
-                                 "                 0.0, 0.0, 0.0, 0.0,"
-                                 "                 0.0, 0.0, 0.0, 0.0,"
-                                 "                 0.0, 0.0, 0.0, 1.0);"*/
                                  "uniform mat4 projection;"
                                  "uniform mat4 combined;"
                                  "void main(){"
                                  "gl_Position = combined * model * vec4(aPos.x, aPos.y, aPos.z, 1.0);"
+                                 "fragPos = model * vec4(aPos.x, aPos.y, aPos.z, 1.0);"
+                                 "ourNor = aNor;"
                                  "ourColor = vec3(aPos.x, aPos.y, aPos.z);"
-                                 "TexCoord = aTexCoord;"
                                  "}";
 const char* fragmentShaderSource = "#version 330 core\n"
                                    "out vec4 FragColor;"
+                                   "in vec3 ourNor;"
+                                   "in vec3 fragPos;"
                                    "in vec3 ourColor;"
-                                   "in vec2 TexCoord;"
-                                   "uniform sampler2D ourTexture;"
+                                   "uniform vec3 lightPos;"
+                                   "uniform vec3 lightColor;"
+                                   "uniform vec3 objectColor;"
                                    "void main(){"
                                    "float ambientStrength = 0.5;"
+                                   "float diffuseStrength = 0.5;"
                                    "vec3 ambient = ambientStrength * vec3(1.0, 1.0, 0.0);"
-                                   "vec3 result = ambient * ourColor;"
+                                   "vec3 norm = normalize(ourNor);"
+                                   "vec3 lightDir = normalize(lightPos - fragPos);"
+                                   "float diff = max(dot(norm, lightDir), 0.0)"
+                                   "vec3 diffuse = diff * lightColor;"
+                                   "vec3 result = (ambient + diffuse) * objectColor;"
                                    "FragColor = vec4(result, 1.0);"
                                    "}";
+
 
 int main(int argc, char *argv[]){
 
     Init();
-    LoadShaders();
+    //LoadShaders();
     //LoadObjects();
     RenderLoop();
     Quit();
@@ -234,6 +285,27 @@ void LoadObjects(){
 }
 
 void RenderLoop(){
+    ShaderProgram program("data/shader/vShader.vs", "data/shader/fShader.fs");
+
+    // first, configure the cube's VAO (and VBO)
+    unsigned int VBOB, cubeVAO;
+    glGenVertexArrays(1, &cubeVAO);
+    glGenBuffers(1, &VBOB);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBOB);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glBindVertexArray(cubeVAO);
+
+    // position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
+    // normal attribute
+    glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+    glEnableVertexAttribArray(1);
+
+
+
     unsigned int VBO, VAO;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
@@ -241,7 +313,7 @@ void RenderLoop(){
     glBindVertexArray(VAO);
 
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quad), quad, GL_STATIC_DRAW);
 
     // position attribute
     glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), (void*)0);
@@ -260,22 +332,7 @@ void RenderLoop(){
     glm::mat4 projection = glm::mat4(1.0f);//glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f);
 
     Camera camera(glm::perspective(glm::radians(45.0f), (float)width / (float)height, 0.1f, 100.0f));
-
-    /*camera.setPosition(0.0f, 0.0f, 3.0f);
-    camera.lookAt(glm::vec3(0.0f, 0.0f, 0.0f));*/
-
-    const float *ptrr = glm::value_ptr(camera.getView());
-    for (int i = 0; i < 16; i++) {
-        std::cout << ptrr[i] << " ";
-    }
-    std::cout << std::endl;
-
-    const float *ptr = glm::value_ptr(camera.getView() * camera.getView());
-    for (int i = 0; i < 16; i++) {
-        std::cout << ptr[i] << " ";
-    }
     camera.setPosition(0.0f, 0.0f, -10.0f);
-    //camera.rotate(glm::radians(45.0f), 0.0f, 0.0f, 1.0f);
 
     float yaw = 0.0f;
     float pitch = 0.0f;
@@ -285,7 +342,16 @@ void RenderLoop(){
     bool is_warp = true;
     float sensitivity = 0.2f;
 
+    float deltaTime = 0.0f;	// Time between current frame and last frame
+    float lastFrame = 0.0f;
+
+    float lightColor[] {0.5f, 0.5f, 0.5f};
+
     while(!m_isClosed){
+        float currentFrame = SDL_GetTicks() / 1000.0f;
+        deltaTime = currentFrame - lastFrame;
+        lastFrame = currentFrame;
+
         SDL_GL_SwapWindow(m_window);
 
         SDL_Event e;
@@ -349,7 +415,7 @@ void RenderLoop(){
 
                 if (e.key.keysym.sym == SDLK_w) {
                     //view = glm::translate(view, glm::vec3(0.0f, 0.1f, 0.0f));
-                    auto speed = 2.5f;
+                    auto speed = 1.5f * deltaTime;
                     auto dir = camera.getPosition() + camera.getDirection();
                     camera.translate(front.x * speed, front.y * speed, front.z * speed);
                     //camera.setPosition(50, 50, 50);
@@ -357,12 +423,50 @@ void RenderLoop(){
                 }
 
                 if (e.key.keysym.sym == SDLK_s) {
-                    auto speed = -2.5f;
+                    auto speed = -1.5f * deltaTime;
                     auto dir = camera.getPosition() + camera.getDirection();
                     camera.translate(front.x * speed, front.y * speed, front.z * speed);
                     std::cout << "translate" << std::endl;
                 }
 
+                if (e.key.keysym.sym == SDLK_a) {
+                    auto speed = 1.5f;
+                    auto rig = camera.getRight();
+                    camera.translate(rig.x * speed, rig.y * speed, rig.z * speed);
+                    std::cout << "translate" << std::endl;
+                }
+
+                if (e.key.keysym.sym == SDLK_d) {
+                    auto speed = -1.5f;
+                    auto rig = camera.getRight();
+                    camera.translate(rig.x * speed, rig.y * speed, rig.z * speed);
+                    std::cout << "translate" << std::endl;
+                }
+
+                if (e.key.keysym.sym == SDLK_KP_4 && lightColor[0] <= 1.0f) {
+                    lightColor[0] = lightColor[0] + 0.1f;
+                    std::cout << lightColor[0] << std::endl;
+                }
+
+                if (e.key.keysym.sym == SDLK_KP_1 && lightColor[0] > 0.0f) {
+                    lightColor[0] -= 0.1f;
+                }
+
+                if (e.key.keysym.sym == SDLK_KP_5 && lightColor[1] <= 1.0f) {
+                    lightColor[1] += 0.1f;
+                }
+
+                if (e.key.keysym.sym == SDLK_KP_2 && lightColor[1] > 0.0f) {
+                    lightColor[1] -= 0.1f;
+                }
+
+                if (e.key.keysym.sym == SDLK_KP_6 && lightColor[2] <= 1.0f) {
+                    lightColor[2] += 0.1f;
+                }
+
+                if (e.key.keysym.sym == SDLK_KP_3 && lightColor[2] > 0.0f) {
+                    lightColor[2] -= 0.1f;
+                }
 
                 if (e.key.keysym.sym == SDLK_m) {
                     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -384,36 +488,44 @@ void RenderLoop(){
 
         camera.update();
 
+
+        program.setVec3("light.position", 0.0f, 20.0f, 0.0f);
+        program.setVec3("light.ambient" , 0.2f, 0.2f, 0.2f);
+        program.setVec3("light.diffuse" , 0.5f, 0.5f, 0.5f);
+        program.setVec3("light.specular", 1.0f, 1.0f, 1.0f);
+
+        program.setVec3("viewPos", camera.getPosition().x, camera.getPosition().y, camera.getPosition().z);
+
+        program.setVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+        program.setVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+        program.setVec3("material.specular", 0.5f, 0.5f, 0.5f);
+        program.setUniform1f("material.shininess", 64.0f);
+
         //view = glm::lookAt(pos, dir, up);
         obj->autoRotate();
 
         glClearColor(0.2, 0.2, 0.5, 0.0); // Set the clear color. State setting function
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);	// State using funtion
-        //Draw();
 
-        float pos[] = {};
+        program.setUniformMatrix4fv("combined", glm::value_ptr(camera.getCombined()));
 
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "view"), 1, GL_FALSE, glm::value_ptr(camera.getView()));
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(camera.getProjection()));
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "combined"), 1, GL_FALSE, glm::value_ptr(camera.getCombined()));
+        //obj->draw(program, 0.0f, 0.0f, 0.0f);
 
-        /*glBindVertexArray(VAO);
-        glDrawArrays(GL_TRIANGLES, 0, 36);*/
-        obj->draw(shaderProgram, 0.0f, 0.0f, 0.0f);
+        //obj->draw(program, 0.0f, 4.0f, 0.0f);
 
-        obj->draw(shaderProgram, 0.0f, 4.0f, 0.0f);
-        //obj->draw(shaderProgram);
-        //Update(m_window);
-
+        program.use();
         glm::mat4 model = glm::mat4(1.0f);
-        //model = glm::translate(model, glm::vec3(-100.0f, 0.0f, -100.0f));
-        glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(model));
+        program.setUniformMatrix4fv("model", glm::value_ptr(model));
+
+        glBindVertexArray(cubeVAO);
+        glDrawArrays(GL_TRIANGLES, 0, 36);
 
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         for (int i = 0; i < 200; i++) {
             for (int j = 0; j < 200; j++) {
                 model = glm::translate(model, glm::vec3(2.0f, 0.0f, 0.0f));
-                glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(model));
+                program.setUniformMatrix4fv("model", glm::value_ptr(model));
+                //glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "model"), 1, GL_FALSE, glm::value_ptr(model));
 
                 glBindVertexArray(VAO);
                 glDrawArrays(GL_QUADS, 0, 4);
@@ -425,7 +537,7 @@ void RenderLoop(){
     }
 }
 
-void Quit(){
+void Quit() {
     SDL_GL_DeleteContext(m_glContext);
     SDL_DestroyWindow(m_window);
     SDL_Quit();

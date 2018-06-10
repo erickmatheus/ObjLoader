@@ -203,6 +203,33 @@ ObjLoad.cpp.s:
 	$(MAKE) -f CMakeFiles\learnSDL2.dir\build.make CMakeFiles/learnSDL2.dir/ObjLoad.cpp.s
 .PHONY : ObjLoad.cpp.s
 
+ShaderProgram.obj: ShaderProgram.cpp.obj
+
+.PHONY : ShaderProgram.obj
+
+# target to build an object file
+ShaderProgram.cpp.obj:
+	$(MAKE) -f CMakeFiles\learnSDL2.dir\build.make CMakeFiles/learnSDL2.dir/ShaderProgram.cpp.obj
+.PHONY : ShaderProgram.cpp.obj
+
+ShaderProgram.i: ShaderProgram.cpp.i
+
+.PHONY : ShaderProgram.i
+
+# target to preprocess a source file
+ShaderProgram.cpp.i:
+	$(MAKE) -f CMakeFiles\learnSDL2.dir\build.make CMakeFiles/learnSDL2.dir/ShaderProgram.cpp.i
+.PHONY : ShaderProgram.cpp.i
+
+ShaderProgram.s: ShaderProgram.cpp.s
+
+.PHONY : ShaderProgram.s
+
+# target to generate assembly for a file
+ShaderProgram.cpp.s:
+	$(MAKE) -f CMakeFiles\learnSDL2.dir\build.make CMakeFiles/learnSDL2.dir/ShaderProgram.cpp.s
+.PHONY : ShaderProgram.cpp.s
+
 glad.obj: glad.c.obj
 
 .PHONY : glad.obj
@@ -275,6 +302,9 @@ help:
 	@echo ... ObjLoad.obj
 	@echo ... ObjLoad.i
 	@echo ... ObjLoad.s
+	@echo ... ShaderProgram.obj
+	@echo ... ShaderProgram.i
+	@echo ... ShaderProgram.s
 	@echo ... glad.obj
 	@echo ... glad.i
 	@echo ... glad.s

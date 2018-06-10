@@ -651,12 +651,16 @@ glm/gtc/matrix_transform.hpp
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/gtc/matrix_transform.hpp
 glm/gtc/type_ptr.hpp
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/gtc/type_ptr.hpp
+ShaderProgram.h
+C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ShaderProgram.h
 
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Obj.h
 vector
 -
 glm/glm.hpp
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/glm.hpp
+ShaderProgram.h
+C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ShaderProgram.h
 
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ObjLoad.cpp
 iostream
@@ -679,6 +683,24 @@ vector
 -
 Obj.h
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Obj.h
+
+C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ShaderProgram.cpp
+string
+-
+fstream
+-
+sstream
+-
+glad/glad.h
+-
+iostream
+-
+ShaderProgram.h
+C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ShaderProgram.h
+
+C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ShaderProgram.h
+glad/glad.h
+C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glad/glad.h
 
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/glm/common.hpp
 detail/setup.hpp
@@ -1557,4 +1579,6 @@ ObjLoad.h
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ObjLoad.h
 Camera.h
 C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/Camera.h
+ShaderProgram.h
+C:/Users/Dantas/Documents/GitHub/ObjLoader/learn_sdl/ShaderProgram.h
 

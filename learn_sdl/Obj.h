@@ -8,6 +8,7 @@
 
 #include <vector>
 #include "glm/glm.hpp"
+#include "ShaderProgram.h"
 
 class Obj {
 private:
@@ -15,12 +16,13 @@ private:
 
     std::vector<float> vertices;
     std::vector<glm::vec3> uvs;
-    std::vector<glm::vec3> normals;
+    std::vector<float> normals;
 
     glm::mat4 model;
 
     unsigned int VAO;
     unsigned int VBO;
+    unsigned int VNO;
     unsigned int EBO;
 public:
     virtual ~Obj();
@@ -31,6 +33,8 @@ public:
 
     const float * getVertices() const;
 
+    const float * getNormals() const;
+
     std::vector<float> verticesVector();
 
     float getNum_vertices() const;
@@ -38,6 +42,8 @@ public:
     void addVertex(float x, float y, float z, float w = 1.0);
 
     void addVertex(float x, float y);
+
+    void addNormal(float x, float y, float z);
 
     void addEBO(glm::vec3 vec3);
 
@@ -51,9 +57,9 @@ public:
 
     void autoRotate();
 
-    void draw(unsigned int program);
+    void draw(ShaderProgram program);
 
-    void draw(unsigned int program, float x, float y, float z);
+    void draw(ShaderProgram program, float x, float y, float z);
 };
 
 

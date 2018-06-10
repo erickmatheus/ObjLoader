@@ -90,6 +90,7 @@ CMakeFiles/learnSDL2.dir/Obj.cpp.obj: ../../lib/KHR/khrplatform.h
 CMakeFiles/learnSDL2.dir/Obj.cpp.obj: ../../lib/glad/glad.h
 CMakeFiles/learnSDL2.dir/Obj.cpp.obj: ../Obj.cpp
 CMakeFiles/learnSDL2.dir/Obj.cpp.obj: ../Obj.h
+CMakeFiles/learnSDL2.dir/Obj.cpp.obj: ../ShaderProgram.h
 CMakeFiles/learnSDL2.dir/Obj.cpp.obj: ../glm/common.hpp
 CMakeFiles/learnSDL2.dir/Obj.cpp.obj: ../glm/detail/_fixes.hpp
 CMakeFiles/learnSDL2.dir/Obj.cpp.obj: ../glm/detail/_swizzle.hpp
@@ -190,9 +191,12 @@ CMakeFiles/learnSDL2.dir/Obj.cpp.obj: ../glm/vec3.hpp
 CMakeFiles/learnSDL2.dir/Obj.cpp.obj: ../glm/vec4.hpp
 CMakeFiles/learnSDL2.dir/Obj.cpp.obj: ../glm/vector_relational.hpp
 
+CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj: ../../lib/KHR/khrplatform.h
+CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj: ../../lib/glad/glad.h
 CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj: ../Obj.h
 CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj: ../ObjLoad.cpp
 CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj: ../ObjLoad.h
+CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj: ../ShaderProgram.h
 CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj: ../glm/common.hpp
 CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj: ../glm/detail/_fixes.hpp
 CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj: ../glm/detail/_swizzle.hpp
@@ -280,6 +284,11 @@ CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj: ../glm/vec3.hpp
 CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj: ../glm/vec4.hpp
 CMakeFiles/learnSDL2.dir/ObjLoad.cpp.obj: ../glm/vector_relational.hpp
 
+CMakeFiles/learnSDL2.dir/ShaderProgram.cpp.obj: ../../lib/KHR/khrplatform.h
+CMakeFiles/learnSDL2.dir/ShaderProgram.cpp.obj: ../../lib/glad/glad.h
+CMakeFiles/learnSDL2.dir/ShaderProgram.cpp.obj: ../ShaderProgram.cpp
+CMakeFiles/learnSDL2.dir/ShaderProgram.cpp.obj: ../ShaderProgram.h
+
 CMakeFiles/learnSDL2.dir/main.cpp.obj: ../../lib/KHR/khrplatform.h
 CMakeFiles/learnSDL2.dir/main.cpp.obj: ../../lib/glad/glad.h
 CMakeFiles/learnSDL2.dir/main.cpp.obj: ../SDL2-2.0.8/i686-w64-mingw32/include/SDL2/SDL.h
@@ -330,6 +339,7 @@ CMakeFiles/learnSDL2.dir/main.cpp.obj: ../SDL2-2.0.8/i686-w64-mingw32/include/SD
 CMakeFiles/learnSDL2.dir/main.cpp.obj: ../Camera.h
 CMakeFiles/learnSDL2.dir/main.cpp.obj: ../Obj.h
 CMakeFiles/learnSDL2.dir/main.cpp.obj: ../ObjLoad.h
+CMakeFiles/learnSDL2.dir/main.cpp.obj: ../ShaderProgram.h
 CMakeFiles/learnSDL2.dir/main.cpp.obj: ../glm/common.hpp
 CMakeFiles/learnSDL2.dir/main.cpp.obj: ../glm/detail/_fixes.hpp
 CMakeFiles/learnSDL2.dir/main.cpp.obj: ../glm/detail/_swizzle.hpp
